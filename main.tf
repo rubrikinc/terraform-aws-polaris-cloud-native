@@ -35,7 +35,7 @@ resource "polaris_aws_cnp_account_trust_policy" "trust_policy" {
 }
 
 # Create the required IAM roles.
-resource "aws_iam_role" "role" {
+resource "aws_iam_role" "rsc_roles" {
   for_each            = data.polaris_aws_cnp_artifacts.artifacts.role_keys
   assume_role_policy  = polaris_aws_cnp_account_trust_policy.trust_policy[each.key].policy
   managed_policy_arns = data.polaris_aws_cnp_permissions.permissions[each.key].managed_policies
@@ -55,7 +55,7 @@ resource "aws_iam_role" "role" {
 resource "aws_iam_instance_profile" "profile" {
   for_each    = data.polaris_aws_cnp_artifacts.artifacts.instance_profile_keys
   name_prefix = "rubrik-${lower(each.key)}-"
-  role        = aws_iam_role.role[each.value].name
+  role        = aws_iam_role.rsc_roles[each.value].name
 }
 
 # Attach the instance profiles and the roles to the RSC cloud account.
@@ -72,7 +72,7 @@ resource "polaris_aws_cnp_account_attachments" "attachments" {
   }
 
   dynamic "role" {
-    for_each = aws_iam_role.role
+    for_each = aws_iam_role.rsc_roles
     content {
       key = role.key
       arn = role.value["arn"]

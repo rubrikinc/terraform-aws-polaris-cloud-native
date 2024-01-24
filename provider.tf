@@ -16,5 +16,5 @@ provider "aws" {
 }
 
 provider "polaris" {
-  credentials = var.polaris_credentials
+  credentials = var.rsc_credentials
 }
