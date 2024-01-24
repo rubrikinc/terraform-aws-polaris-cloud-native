@@ -86,6 +86,11 @@ variable "rsc_aws_features" {
   description = "Rubrik Security Cloud features to enable for the AWS account to be protected."
 
   validation {
+    condition     = alltrue([for val in var.rsc_aws_features : contains(["CLOUD_NATIVE_ARCHIVAL", "CLOUD_NATIVE_PROTECTION", "RDS_PROTECTION", "CLOUD_NATIVE_S3_PROTECTION", "EXOCOMPUTE"], val)])
+    error_message = "Invalid input, options: \"CLOUD_NATIVE_ARCHIVAL\", \"CLOUD_NATIVE_PROTECTION\", \"RDS_PROTECTION\", \"CLOUD_NATIVE_S3_PROTECTION\", and/or \"EXOCOMPUTE\"."
+  }
+}
+
 variable "rsc_cloud_type" {
   type        = string
   default     = "STANDARD"
