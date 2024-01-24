@@ -14,13 +14,13 @@ There are a few services you'll need in order to get this project off the ground
 
 ```hcl
 # Setting up an AWS account that will use all features.
-module "polaris-aws-cloud-native_exo_host" {
+module "polaris-aws-cloud-native" {
   source  = "rubrikinc/polaris-cloud-native/aws"
   
-  polaris_credentials                 = "../.creds/customer-service-account.json"
   aws_account_name                    = "my_aws_account_hosted_exocompute"
   aws_account_id                      = "123456789012"
   aws_regions                         = ["us-west-2","us-east-1"]
+  rsc_credentials                     = "../.creds/customer-service-account.json"
   rsc_aws_features                    = [
                                           "CLOUD_NATIVE_PROTECTION",
                                           "RDS_PROTECTION",
