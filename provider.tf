@@ -3,11 +3,11 @@ terraform {
   required_providers {
     aws = {
       source = "hashicorp/aws"
-      version = "~>5.0"
+      version = "~>5.26.0"
     }
     polaris = {
       source  = "rubrikinc/polaris"
-      version = "=0.8.0-beta.7"
+      version = "=0.8.0-beta.8"
     }
   }
 }
@@ -16,5 +16,5 @@ provider "aws" {
 }
 
 provider "polaris" {
-  credentials = var.polaris_credentials
+  credentials = var.rsc_credentials
 }
