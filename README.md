@@ -18,17 +18,32 @@ There are a few services you'll need in order to get this project off the ground
 module "polaris-aws-cloud-native" {
   source  = "rubrikinc/polaris-cloud-native/aws"
   
-  aws_account_name                    = "my_aws_account_hosted_exocompute"
-  aws_account_id                      = "123456789012"
-  aws_regions                         = ["us-west-2","us-east-1"]
-  rsc_credentials                     = "../.creds/customer-service-account.json"
-  rsc_aws_features                    = [
-                                          "CLOUD_NATIVE_PROTECTION",
-                                          "RDS_PROTECTION",
-                                          "CLOUD_NATIVE_S3_PROTECTION",
-                                          "EXOCOMPUTE",
-                                          "CLOUD_NATIVE_ARCHIVAL"
-                                        ]
+  aws_account_name  = "my_aws_account_hosted_exocompute"
+  aws_account_id    = "123456789012"
+  aws_regions       = ["us-west-2","us-east-1"]
+  rsc_credentials   = "../.creds/customer-service-account.json"
+  rsc_aws_features  = [
+                      {
+                        name              = "CLOUD_NATIVE_PROTECTION",
+                        permission_groups = []
+                      },
+                      {
+                        name              = "RDS_PROTECTION",
+                        permission_groups = []
+                      },
+                      {
+                        name              = "CLOUD_NATIVE_S3_PROTECTION"
+                        permission_groups = []
+                      },
+                      {
+                        name              = "EXOCOMPUTE"
+                        permission_groups = []
+                      },
+                      {
+                        name = "CLOUD_NATIVE_ARCHIVAL",
+                        permission_groups = []
+                      }
+                    ]
 }
 ```
 
@@ -41,14 +56,14 @@ module "polaris-aws-cloud-native" {
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.5.6 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~>5.26.0 |
-| <a name="requirement_polaris"></a> [polaris](#requirement\_polaris) | =0.8.0-beta.8 |
+| <a name="requirement_polaris"></a> [polaris](#requirement\_polaris) | =0.8.0-beta.11 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 5.26.0 |
-| <a name="provider_polaris"></a> [polaris](#provider\_polaris) | 0.8.0-beta.8 |
+| <a name="provider_polaris"></a> [polaris](#provider\_polaris) | 0.8.0-beta.11 |
 
 ## Resources
 
@@ -56,11 +71,11 @@ module "polaris-aws-cloud-native" {
 |------|------|
 | [aws_iam_instance_profile.profile](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile) | resource |
 | [aws_iam_role.rsc_roles](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
-| [polaris_aws_cnp_account.account](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.8/docs/resources/aws_cnp_account) | resource |
-| [polaris_aws_cnp_account_attachments.attachments](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.8/docs/resources/aws_cnp_account_attachments) | resource |
-| [polaris_aws_cnp_account_trust_policy.trust_policy](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.8/docs/resources/aws_cnp_account_trust_policy) | resource |
-| [polaris_aws_cnp_artifacts.artifacts](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.8/docs/data-sources/aws_cnp_artifacts) | data source |
-| [polaris_aws_cnp_permissions.permissions](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.8/docs/data-sources/aws_cnp_permissions) | data source |
+| [polaris_aws_cnp_account.account](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.11/docs/resources/aws_cnp_account) | resource |
+| [polaris_aws_cnp_account_attachments.attachments](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.11/docs/resources/aws_cnp_account_attachments) | resource |
+| [polaris_aws_cnp_account_trust_policy.trust_policy](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.11/docs/resources/aws_cnp_account_trust_policy) | resource |
+| [polaris_aws_cnp_artifacts.artifacts](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.11/docs/data-sources/aws_cnp_artifacts) | data source |
+| [polaris_aws_cnp_permissions.permissions](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.11/docs/data-sources/aws_cnp_permissions) | data source |
 
 ## Modules
 
@@ -77,7 +92,7 @@ No modules.
 | <a name="input_aws_regions"></a> [aws\_regions](#input\_aws\_regions) | AWS regions to protect with Rubrik Security Cloud. | `set(string)` | n/a | yes |
 | <a name="input_aws_role_path"></a> [aws\_role\_path](#input\_aws\_role\_path) | AWS role path for cross account role. | `string` | `"/"` | no |
 | <a name="input_rsc_aws_delete_snapshots_on_destroy"></a> [rsc\_aws\_delete\_snapshots\_on\_destroy](#input\_rsc\_aws\_delete\_snapshots\_on\_destroy) | Delete snapshots in AWS when account is removed from Rubrik Security Cloud. | `bool` | `false` | no |
-| <a name="input_rsc_aws_features"></a> [rsc\_aws\_features](#input\_rsc\_aws\_features) | Rubrik Security Cloud features to enable for the AWS account to be protected. | `set(string)` | n/a | yes |
+| <a name="input_rsc_aws_features"></a> [rsc\_aws\_features](#input\_rsc\_aws\_features) | RSC features with permission groups. | <pre>set(object({<br>    name              = string<br>    permission_groups = set(string)<br>  }))</pre> | n/a | yes |
 | <a name="input_rsc_cloud_type"></a> [rsc\_cloud\_type](#input\_rsc\_cloud\_type) | AWS cloud type in RSC. | `string` | `"STANDARD"` | no |
 | <a name="input_rsc_credentials"></a> [rsc\_credentials](#input\_rsc\_credentials) | Path to the Rubrik Security Cloud service account file. | `string` | n/a | yes |
 
@@ -88,7 +103,7 @@ No modules.
 | <a name="output_aws_eks_worker_node_role_arn"></a> [aws\_eks\_worker\_node\_role\_arn](#output\_aws\_eks\_worker\_node\_role\_arn) | n/a |
 | <a name="output_aws_iam_cross_account_role_arn"></a> [aws\_iam\_cross\_account\_role\_arn](#output\_aws\_iam\_cross\_account\_role\_arn) | n/a |
 | <a name="output_cluster_master_role_arn"></a> [cluster\_master\_role\_arn](#output\_cluster\_master\_role\_arn) | n/a |
-| <a name="output_polaris_aws_cnp_account_id"></a> [polaris\_aws\_cnp\_account\_id](#output\_polaris\_aws\_cnp\_account\_id) | n/a |
+| <a name="output_rsc_aws_cnp_account_id"></a> [rsc\_aws\_cnp\_account\_id](#output\_rsc\_aws\_cnp\_account\_id) | n/a |
 | <a name="output_worker_instance_profile"></a> [worker\_instance\_profile](#output\_worker\_instance\_profile) | n/a |
 
 
