@@ -1,4 +1,4 @@
-output "polaris_aws_cnp_account_id" {
+output "rsc_aws_cnp_account_id" {
   value = polaris_aws_cnp_account.account.id
 }
 
