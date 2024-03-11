@@ -14,6 +14,7 @@ terraform {
 
 provider "aws" {
   retry_mode = "standard"
+  profile = var.aws_profile
 }
 
 provider "polaris" {

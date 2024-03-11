@@ -20,6 +20,11 @@ variable "aws_external_id" {
   description = "External ID for the AWS cross account role. If left empty, RSC will automatically generate an external ID."
 }
 
+variable "aws_profile" {
+  type        = string
+  description = "AWS profile to use for the Rubrik Security Cloud account." 
+}
+
 variable "aws_regions" {
   type        = set(string)
   description = "AWS regions to protect with Rubrik Security Cloud."

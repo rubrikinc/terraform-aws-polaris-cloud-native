@@ -89,6 +89,7 @@ No modules.
 | <a name="input_aws_account_name"></a> [aws\_account\_name](#input\_aws\_account\_name) | AWS account name to protect with Rubrik Security Cloud. | `string` | n/a | yes |
 | <a name="input_aws_ec2_recovery_role_path"></a> [aws\_ec2\_recovery\_role\_path](#input\_aws\_ec2\_recovery\_role\_path) | EC2 recovery role path for the cross account role. | `string` | `""` | no |
 | <a name="input_aws_external_id"></a> [aws\_external\_id](#input\_aws\_external\_id) | External ID for the AWS cross account role. If left empty, RSC will automatically generate an external ID. | `string` | `""` | no |
+| <a name="input_aws_profile"></a> [aws\_profile](#input\_aws\_profile) | AWS profile to use for the Rubrik Security Cloud account. | `string` | n/a | yes |
 | <a name="input_aws_regions"></a> [aws\_regions](#input\_aws\_regions) | AWS regions to protect with Rubrik Security Cloud. | `set(string)` | n/a | yes |
 | <a name="input_aws_role_path"></a> [aws\_role\_path](#input\_aws\_role\_path) | AWS role path for cross account role. | `string` | `"/"` | no |
 | <a name="input_rsc_aws_delete_snapshots_on_destroy"></a> [rsc\_aws\_delete\_snapshots\_on\_destroy](#input\_rsc\_aws\_delete\_snapshots\_on\_destroy) | Delete snapshots in AWS when account is removed from Rubrik Security Cloud. | `bool` | `false` | no |
