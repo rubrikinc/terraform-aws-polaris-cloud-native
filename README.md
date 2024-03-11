@@ -56,14 +56,14 @@ module "polaris-aws-cloud-native" {
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.5.6 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~>5.26.0 |
-| <a name="requirement_polaris"></a> [polaris](#requirement\_polaris) | =0.8.0-beta.11 |
+| <a name="requirement_polaris"></a> [polaris](#requirement\_polaris) | =0.8.0-beta.16 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 5.26.0 |
-| <a name="provider_polaris"></a> [polaris](#provider\_polaris) | 0.8.0-beta.11 |
+| <a name="provider_polaris"></a> [polaris](#provider\_polaris) | 0.8.0-beta.15 |
 
 ## Resources
 
@@ -71,11 +71,11 @@ module "polaris-aws-cloud-native" {
 |------|------|
 | [aws_iam_instance_profile.profile](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile) | resource |
 | [aws_iam_role.rsc_roles](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
-| [polaris_aws_cnp_account.account](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.11/docs/resources/aws_cnp_account) | resource |
-| [polaris_aws_cnp_account_attachments.attachments](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.11/docs/resources/aws_cnp_account_attachments) | resource |
-| [polaris_aws_cnp_account_trust_policy.trust_policy](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.11/docs/resources/aws_cnp_account_trust_policy) | resource |
-| [polaris_aws_cnp_artifacts.artifacts](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.11/docs/data-sources/aws_cnp_artifacts) | data source |
-| [polaris_aws_cnp_permissions.permissions](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.11/docs/data-sources/aws_cnp_permissions) | data source |
+| [polaris_aws_cnp_account.account](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.16/docs/resources/aws_cnp_account) | resource |
+| [polaris_aws_cnp_account_attachments.attachments](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.16/docs/resources/aws_cnp_account_attachments) | resource |
+| [polaris_aws_cnp_account_trust_policy.trust_policy](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.16/docs/resources/aws_cnp_account_trust_policy) | resource |
+| [polaris_aws_cnp_artifacts.artifacts](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.16/docs/data-sources/aws_cnp_artifacts) | data source |
+| [polaris_aws_cnp_permissions.permissions](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.16/docs/data-sources/aws_cnp_permissions) | data source |
 
 ## Modules
 
@@ -89,6 +89,7 @@ No modules.
 | <a name="input_aws_account_name"></a> [aws\_account\_name](#input\_aws\_account\_name) | AWS account name to protect with Rubrik Security Cloud. | `string` | n/a | yes |
 | <a name="input_aws_ec2_recovery_role_path"></a> [aws\_ec2\_recovery\_role\_path](#input\_aws\_ec2\_recovery\_role\_path) | EC2 recovery role path for the cross account role. | `string` | `""` | no |
 | <a name="input_aws_external_id"></a> [aws\_external\_id](#input\_aws\_external\_id) | External ID for the AWS cross account role. If left empty, RSC will automatically generate an external ID. | `string` | `""` | no |
+| <a name="input_aws_profile"></a> [aws\_profile](#input\_aws\_profile) | AWS profile to use for the Rubrik Security Cloud account. | `string` | n/a | yes |
 | <a name="input_aws_regions"></a> [aws\_regions](#input\_aws\_regions) | AWS regions to protect with Rubrik Security Cloud. | `set(string)` | n/a | yes |
 | <a name="input_aws_role_path"></a> [aws\_role\_path](#input\_aws\_role\_path) | AWS role path for cross account role. | `string` | `"/"` | no |
 | <a name="input_rsc_aws_delete_snapshots_on_destroy"></a> [rsc\_aws\_delete\_snapshots\_on\_destroy](#input\_rsc\_aws\_delete\_snapshots\_on\_destroy) | Delete snapshots in AWS when account is removed from Rubrik Security Cloud. | `bool` | `false` | no |
