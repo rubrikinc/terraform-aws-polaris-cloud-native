@@ -1,7 +1,15 @@
 # Lookup the instance profiles and roles needed for the specified RSC features.
 data "polaris_aws_cnp_artifacts" "artifacts" {
   cloud    = var.rsc_cloud_type
-  features = var.rsc_aws_features.*.name
+
+  dynamic "feature" {
+    for_each = var.rsc_aws_features
+    content {
+      name              = feature.value["name"]
+      permission_groups = feature.value["permission_groups"]
+    }
+  }
+
 }
 
 # Lookup the permission set, customer managed policies and managed policies,
@@ -10,20 +18,16 @@ data "polaris_aws_cnp_permissions" "permissions" {
   for_each               = data.polaris_aws_cnp_artifacts.artifacts.role_keys
   cloud                  = data.polaris_aws_cnp_artifacts.artifacts.cloud
   ec2_recovery_role_path = var.aws_ec2_recovery_role_path
-  features               = data.polaris_aws_cnp_artifacts.artifacts.features
   role_key               = each.key
-}
 
-# Create the RSC AWS cloud account.
-# resource "polaris_aws_cnp_account" "account" {
-#   cloud                       = data.polaris_aws_cnp_artifacts.artifacts.cloud
-#   external_id                 = var.aws_external_id
-#   features                    = data.polaris_aws_cnp_artifacts.artifacts.features
-#   delete_snapshots_on_destroy = var.rsc_aws_delete_snapshots_on_destroy
-#   name                        = var.aws_account_name
-#   native_id                   = var.aws_account_id
-#   regions                     = var.aws_regions
-# }
+    dynamic "feature" {
+    for_each = var.rsc_aws_features
+    content {
+      name              = feature.value["name"]
+      permission_groups = feature.value["permission_groups"]
+    }
+  }
+}
 
 #Create the RSC AWS cloud account.
 resource "polaris_aws_cnp_account" "account" {
@@ -33,7 +37,7 @@ resource "polaris_aws_cnp_account" "account" {
   name                        = var.aws_account_name
   native_id                   = var.aws_account_id
   regions                     = var.aws_regions
- dynamic "feature" {
+  dynamic "feature" {
     for_each = var.rsc_aws_features
     content {
       name              = feature.value["name"]

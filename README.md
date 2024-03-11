@@ -56,14 +56,14 @@ module "polaris-aws-cloud-native" {
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.5.6 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~>5.26.0 |
-| <a name="requirement_polaris"></a> [polaris](#requirement\_polaris) | =0.8.0-beta.11 |
+| <a name="requirement_polaris"></a> [polaris](#requirement\_polaris) | =0.8.0-beta.16 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 5.26.0 |
-| <a name="provider_polaris"></a> [polaris](#provider\_polaris) | 0.8.0-beta.11 |
+| <a name="provider_polaris"></a> [polaris](#provider\_polaris) | 0.8.0-beta.15 |
 
 ## Resources
 
@@ -71,11 +71,11 @@ module "polaris-aws-cloud-native" {
 |------|------|
 | [aws_iam_instance_profile.profile](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile) | resource |
 | [aws_iam_role.rsc_roles](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
-| [polaris_aws_cnp_account.account](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.11/docs/resources/aws_cnp_account) | resource |
-| [polaris_aws_cnp_account_attachments.attachments](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.11/docs/resources/aws_cnp_account_attachments) | resource |
-| [polaris_aws_cnp_account_trust_policy.trust_policy](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.11/docs/resources/aws_cnp_account_trust_policy) | resource |
-| [polaris_aws_cnp_artifacts.artifacts](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.11/docs/data-sources/aws_cnp_artifacts) | data source |
-| [polaris_aws_cnp_permissions.permissions](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.11/docs/data-sources/aws_cnp_permissions) | data source |
+| [polaris_aws_cnp_account.account](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.16/docs/resources/aws_cnp_account) | resource |
+| [polaris_aws_cnp_account_attachments.attachments](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.16/docs/resources/aws_cnp_account_attachments) | resource |
+| [polaris_aws_cnp_account_trust_policy.trust_policy](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.16/docs/resources/aws_cnp_account_trust_policy) | resource |
+| [polaris_aws_cnp_artifacts.artifacts](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.16/docs/data-sources/aws_cnp_artifacts) | data source |
+| [polaris_aws_cnp_permissions.permissions](https://registry.terraform.io/providers/rubrikinc/polaris/0.8.0-beta.16/docs/data-sources/aws_cnp_permissions) | data source |
 
 ## Modules
 
