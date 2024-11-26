@@ -1,6 +1,6 @@
 # Lookup the instance profiles and roles needed for the specified RSC features.
 data "polaris_aws_cnp_artifacts" "artifacts" {
-  cloud    = var.rsc_cloud_type
+  cloud = var.rsc_cloud_type
 
   dynamic "feature" {
     for_each = var.rsc_aws_features
@@ -20,7 +20,7 @@ data "polaris_aws_cnp_permissions" "permissions" {
   ec2_recovery_role_path = var.aws_ec2_recovery_role_path
   role_key               = each.key
 
-    dynamic "feature" {
+  dynamic "feature" {
     for_each = var.rsc_aws_features
     content {
       name              = feature.value["name"]
@@ -95,8 +95,9 @@ resource "polaris_aws_cnp_account_attachments" "attachments" {
   dynamic "role" {
     for_each = aws_iam_role.rsc_roles
     content {
-      key = role.key
-      arn = role.value["arn"]
+      key         = role.key
+      arn         = role.value["arn"]
+      permissions = data.polaris_aws_cnp_permissions.permissions[role.key].id
     }
   }
 }
