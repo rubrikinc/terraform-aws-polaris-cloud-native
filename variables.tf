@@ -21,11 +21,13 @@ variable "aws_external_id" {
 }
 
 variable "aws_iam_role_type" {
-  type    = string
-  default = "managed"
+  type        = string
+  default     = "managed"
+  description = "How the AWS policies should be attached to the IAM roles created for RSC. Possible values: `managed`, `inline` and `legacy`. `legacy` should only be used for backwards compatibility with previously onboarded AWS accounts."
+
   validation {
     condition     = can(regex("legacy|inline|managed", lower(var.aws_iam_role_type)))
-    error_message = "Invalid AWS IAM role type. Possible values: `legacy`, `inline` and `managed`. Defaults to `managed`. `legacy` should only be used for backwards compatibility with previously onboarded AWS accounts."
+    error_message = "Invalid AWS IAM role type. Possible values: `managed`, `inline` and `legacy`."
   }
 }
 
