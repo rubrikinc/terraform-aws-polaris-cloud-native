@@ -1,6 +1,6 @@
 # Lookup the instance profiles and roles needed for the specified RSC features.
 data "polaris_aws_cnp_artifacts" "artifacts" {
-  cloud    = var.rsc_cloud_type
+  cloud = var.rsc_cloud_type
 
   dynamic "feature" {
     for_each = var.rsc_aws_features
@@ -20,7 +20,7 @@ data "polaris_aws_cnp_permissions" "permissions" {
   ec2_recovery_role_path = var.aws_ec2_recovery_role_path
   role_key               = each.key
 
-    dynamic "feature" {
+  dynamic "feature" {
     for_each = var.rsc_aws_features
     content {
       name              = feature.value["name"]
@@ -55,30 +55,6 @@ resource "polaris_aws_cnp_account_trust_policy" "trust_policy" {
   role_key    = each.key
 }
 
-# Create the required IAM roles.
-resource "aws_iam_role" "rsc_roles" {
-  for_each            = data.polaris_aws_cnp_artifacts.artifacts.role_keys
-  assume_role_policy  = polaris_aws_cnp_account_trust_policy.trust_policy[each.key].policy
-  managed_policy_arns = data.polaris_aws_cnp_permissions.permissions[each.key].managed_policies
-  name_prefix         = "rubrik-${lower(each.key)}-"
-  path                = var.aws_role_path
-
-  dynamic "inline_policy" {
-    for_each = data.polaris_aws_cnp_permissions.permissions[each.key].customer_managed_policies
-    content {
-      name   = inline_policy.value["name"]
-      policy = inline_policy.value["policy"]
-    }
-  }
-}
-
-# Create the required IAM instance profiles.
-resource "aws_iam_instance_profile" "profile" {
-  for_each    = data.polaris_aws_cnp_artifacts.artifacts.instance_profile_keys
-  name_prefix = "rubrik-${lower(each.key)}-"
-  role        = aws_iam_role.rsc_roles[each.value].name
-}
-
 # Attach the instance profiles and the roles to the RSC cloud account.
 resource "polaris_aws_cnp_account_attachments" "attachments" {
   account_id = polaris_aws_cnp_account.account.id
@@ -93,7 +69,7 @@ resource "polaris_aws_cnp_account_attachments" "attachments" {
   }
 
   dynamic "role" {
-    for_each = aws_iam_role.rsc_roles
+    for_each = local.roles
     content {
       key = role.key
       arn = role.value["arn"]

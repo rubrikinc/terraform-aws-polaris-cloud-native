@@ -3,17 +3,17 @@ output "rsc_aws_cnp_account_id" {
 }
 
 output "cluster_master_role_arn" {
-  value = aws_iam_role.rsc_roles["EXOCOMPUTE_EKS_MASTERNODE"].arn
+  value = try(local.roles["EXOCOMPUTE_EKS_MASTERNODE"].arn, null)
 }
 
 output "worker_instance_profile" {
-  value = aws_iam_instance_profile.profile["EXOCOMPUTE_EKS_WORKERNODE"].name
+  value = try(aws_iam_instance_profile.profile["EXOCOMPUTE_EKS_WORKERNODE"].name, null)
 }
 
 output "aws_iam_cross_account_role_arn" {
-  value = aws_iam_role.rsc_roles["CROSSACCOUNT"].arn
+  value = local.roles["CROSSACCOUNT"].arn
 }
 
 output "aws_eks_worker_node_role_arn" {
-  value = aws_iam_role.rsc_roles["EXOCOMPUTE_EKS_WORKERNODE"].arn
+  value = try(local.roles["EXOCOMPUTE_EKS_WORKERNODE"].arn, null)
 }

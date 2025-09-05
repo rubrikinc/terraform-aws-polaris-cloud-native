@@ -20,9 +20,13 @@ variable "aws_external_id" {
   description = "External ID for the AWS cross account role. If left empty, RSC will automatically generate an external ID."
 }
 
-variable "aws_profile" {
-  type        = string
-  description = "AWS profile to use for the Rubrik Security Cloud account." 
+variable "aws_iam_role_type" {
+  type    = string
+  default = "managed"
+  validation {
+    condition     = can(regex("legacy|inline|managed", lower(var.aws_iam_role_type)))
+    error_message = "Invalid AWS IAM role type. Possible values: `legacy`, `inline` and `managed`. Defaults to `managed`. `legacy` should only be used for backwards compatibility with previously onboarded AWS accounts."
+  }
 }
 
 variable "aws_regions" {
@@ -42,47 +46,12 @@ variable "rsc_aws_delete_snapshots_on_destroy" {
   description = "Delete snapshots in AWS when account is removed from Rubrik Security Cloud."
 }
 
-# variable "rsc_aws_features" {
-#   type        = set(string)
-#   description = "Rubrik Security Cloud features to enable for the AWS account to be protected."
-
-#   validation {
-#     condition     = alltrue([for val in var.rsc_aws_features : contains(["CLOUD_NATIVE_ARCHIVAL", "CLOUD_NATIVE_PROTECTION", "RDS_PROTECTION", "CLOUD_NATIVE_S3_PROTECTION", "EXOCOMPUTE"], val)])
-#     error_message = "Invalid input, options: \"CLOUD_NATIVE_ARCHIVAL\", \"CLOUD_NATIVE_PROTECTION\", \"RDS_PROTECTION\", \"CLOUD_NATIVE_S3_PROTECTION\", and/or \"EXOCOMPUTE\"."
-#   }
-# }
-
 variable "rsc_aws_features" {
   type = set(object({
     name              = string
     permission_groups = set(string)
   }))
-  description = "RSC features with permission groups."
-
-  # validation {
-  #   condition     = alltrue(
-  #     [for val in var.rsc_aws_features.name : contains(
-  #       [ "CLOUD_NATIVE_ARCHIVAL",
-  #         "CLOUD_NATIVE_PROTECTION",
-  #         "RDS_PROTECTION",
-  #         "CLOUD_NATIVE_S3_PROTECTION",
-  #         "EXOCOMPUTE"], 
-  #         val),
-      
-  #     for val in var.rsc_aws_features.permission_groups : contains(
-  #       [ "BASIC",
-  #         "EXPORT_AND_RESTORE",
-  #         "FILE_LEVEL_RECOVERY",
-  #         "ENCRYPTION",
-  #         "CLOUD_CLUSTER_ES",
-  #         "PRIVATE_ENDPOINTS",
-  #         "RSC_MANAGED_CLUSTER",
-  #         "SAP_HANA_SS_BASIC",
-  #         "SAP_HANA_SS_RECOVERY"
-  #         ]
-  #     ])
-  #     error_message = "Invalid input, name must be one of: \"CLOUD_NATIVE_ARCHIVAL\", \"CLOUD_NATIVE_PROTECTION\", \"RDS_PROTECTION\", \"CLOUD_NATIVE_S3_PROTECTION\", and/or \"EXOCOMPUTE\". Permission Group must be one of: \"BASIC\", \"EXPORT_AND_RESTORE\", \"FILE_LEVEL_RECOVERY\", \"ENCRYPTION\", \"CLOUD_CLUSTER_ES\", \"PRIVATE_ENDPOINTS\", \"RSC_MANAGED_CLUSTER\", \"SAP_HANA_SS_BASIC\", \"SAP_HANA_SS_RECOVERY\", and/or \"GROUP_UNSPECIFIED\"."
-  # }
+  description = "RSC features with permission groups to enable for the AWS account to be protected."
 }
 
 variable "rsc_cloud_type" {
@@ -91,7 +60,33 @@ variable "rsc_cloud_type" {
   description = "AWS cloud type in RSC."
 }
 
+variable "tags" {
+  type        = map(string)
+  default     = null
+  description = "Tags to apply to AWS resources created."
+}
+
+# Deprecated variables.
+
+variable "aws_profile" {
+  type        = string
+  default     = null
+  description = "AWS profile to use for the Rubrik Security Cloud account."
+}
+
 variable "rsc_credentials" {
   type        = string
+  default     = null
   description = "Path to the Rubrik Security Cloud service account file."
+}
+
+check "deprecations" {
+  assert {
+    condition     = var.aws_profile == null
+    error_message = "The aws_profile variable has been deprecated. It has no replacement and will be removed in a future release. To continue using an AWS profile, pass the profile to the AWS provider block in the root module."
+  }
+  assert {
+    condition     = var.rsc_credentials == null
+    error_message = "The rsc_credentials variable has been deprecated. It has no replacement and will be removed in a future release. To continue using an RSC service account file, pass the file name to the Polaris provider block in the root module."
+  }
 }
