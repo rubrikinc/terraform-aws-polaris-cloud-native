@@ -8,7 +8,7 @@ module "cloud_native" {
   source  = "rubrikinc/polaris-cloud-native/aws"
 
   aws_account_id   = "123456789012"
-  aws_account_name = "123456789012"
+  aws_account_name = "my_aws_account_hosted_exocompute"
   aws_regions      = ["us-west-2","us-east-1"]
 
   rsc_aws_features = [
