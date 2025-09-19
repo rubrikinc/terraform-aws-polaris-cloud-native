@@ -56,7 +56,7 @@ module "cloud_native" {
 
 ## Upgrading
 Before upgrading the module, be sure to read through the changelog to understand the changes in the new version and any
-upgrade instruction for the version you are upgrading to.
+upgrade instructions for the version you are upgrading to.
 
 To upgrade the module to a new version, use the following steps:
 1. Update the `version` field in the `module` block to the version you want to upgrade to, e.g. `version = "0.5.0"`.
