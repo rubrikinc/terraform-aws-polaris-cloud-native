@@ -59,7 +59,7 @@ resource "aws_iam_role" "customer_inline" {
   tags               = var.tags
 }
 
-# Create customer inline IAM policies an attach them to the IAM roles.
+# Create customer inline IAM policies and attach them to the IAM roles.
 resource "aws_iam_role_policy" "customer_inline" {
   for_each = local.customer_inline_iam_roles ? local.customer_managed_policies : {}
   name     = each.key
