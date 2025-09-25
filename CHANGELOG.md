@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.5.3
+* Fix the Module tag in the basic example.
+* Change the type of the `aws_regions` variable from `list(string)` to `set(string)`.
+
 ## v0.5.2
 * Update changelog.
 
