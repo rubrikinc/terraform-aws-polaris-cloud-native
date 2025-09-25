@@ -41,7 +41,7 @@ No resources.
 |------|-------------|------|---------|:--------:|
 | <a name="input_aws_account_id"></a> [aws\_account\_id](#input\_aws\_account\_id) | AWS account ID. | `string` | n/a | yes |
 | <a name="input_aws_account_name"></a> [aws\_account\_name](#input\_aws\_account\_name) | AWS account name. | `string` | n/a | yes |
-| <a name="input_aws_regions"></a> [aws\_regions](#input\_aws\_regions) | AWS regions. | `list(string)` | n/a | yes |
+| <a name="input_aws_regions"></a> [aws\_regions](#input\_aws\_regions) | AWS regions. | `set(string)` | n/a | yes |
 
 ## Outputs
 

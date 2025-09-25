@@ -22,7 +22,7 @@ variable "aws_account_name" {
 }
 
 variable "aws_regions" {
-  type        = list(string)
+  type        = set(string)
   description = "AWS regions."
 }
 
@@ -63,6 +63,6 @@ module "cloud_native" {
   tags = {
     Environment = "test"
     Example     = "basic"
-    Module      = "terraform-aws-polaris-cloud-native-exocompute-networking"
+    Module      = "terraform-aws-polaris-cloud-native"
   }
 }
