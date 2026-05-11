@@ -3,6 +3,8 @@
 ## v0.5.3
 * Fix the Module tag in the basic example.
 * Change the type of the `aws_regions` variable from `list(string)` to `set(string)`.
+* Fix a bug where two RSC policies sharing a name within the same role artifact caused a Terraform duplicate-key
+  error. Colliding policies are now suffixed with a short hash of the policy body.
 
 ## v0.5.2
 * Update changelog.
