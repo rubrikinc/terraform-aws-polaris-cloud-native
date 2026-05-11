@@ -41,16 +41,20 @@ module "cloud_native" {
 
 ## Changelog
 
-# v0.5.2
+### v0.5.3
+* Fix the Module tag in the basic example.
+* Change the type of the `aws_regions` variable from `list(string)` to `set(string)`.
+
+### v0.5.2
 * Update changelog.
 
-# v0.5.1
+### v0.5.1
 * Make use of the `permissions` field in the `polaris_aws_cnp_account_attachments` resource to trigger an update of the
   resource whenever the permissions changes. This update will move the RSC cloud account from the missing permissions
   state. See the RSC (polaris) provider [upgrade guide](https://registry.terraform.io/providers/rubrikinc/polaris/latest/docs/guides/upgrade_guide_v1.0.0#new-permissions-field)
   for additional information.
 
-# v0.5.0
+### v0.5.0
 * Relax the AWS provider version constraint to `>=5.26.0`.
 * Relax the RSC (Polaris) provider version constraint to `>=1.0.0`.
 * Remove the AWS and RSC (Polaris) provider blocks from the module. These must now be provided in the Terraform root
