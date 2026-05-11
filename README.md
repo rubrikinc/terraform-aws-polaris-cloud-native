@@ -44,6 +44,8 @@ module "cloud_native" {
 ### v0.5.3
 * Fix the Module tag in the basic example.
 * Change the type of the `aws_regions` variable from `list(string)` to `set(string)`.
+* Fix a bug where two RSC policies sharing a name within the same role artifact caused a Terraform duplicate-key
+  error. Colliding policies are now suffixed with a short hash of the policy body.
 
 ### v0.5.2
 * Update changelog.
@@ -88,7 +90,7 @@ removed.
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.5.6 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >=5.26.0 |
 | <a name="requirement_polaris"></a> [polaris](#requirement\_polaris) | >=1.0.0 |
@@ -96,14 +98,14 @@ removed.
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >=5.26.0 |
 | <a name="provider_polaris"></a> [polaris](#provider\_polaris) | >=1.0.0 |
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_iam_instance_profile.profile](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile) | resource |
 | [aws_iam_policy.customer_managed](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role.customer_inline](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
@@ -126,7 +128,7 @@ No modules.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_aws_account_id"></a> [aws\_account\_id](#input\_aws\_account\_id) | AWS account ID to protect with Rubrik Security Cloud. | `string` | n/a | yes |
 | <a name="input_aws_account_name"></a> [aws\_account\_name](#input\_aws\_account\_name) | AWS account name to protect with Rubrik Security Cloud. | `string` | n/a | yes |
 | <a name="input_aws_ec2_recovery_role_path"></a> [aws\_ec2\_recovery\_role\_path](#input\_aws\_ec2\_recovery\_role\_path) | EC2 recovery role path for the cross account role. | `string` | `""` | no |
@@ -144,7 +146,7 @@ No modules.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_aws_eks_worker_node_role_arn"></a> [aws\_eks\_worker\_node\_role\_arn](#output\_aws\_eks\_worker\_node\_role\_arn) | n/a |
 | <a name="output_aws_iam_cross_account_role_arn"></a> [aws\_iam\_cross\_account\_role\_arn](#output\_aws\_iam\_cross\_account\_role\_arn) | n/a |
 | <a name="output_cluster_master_role_arn"></a> [cluster\_master\_role\_arn](#output\_cluster\_master\_role\_arn) | n/a |
